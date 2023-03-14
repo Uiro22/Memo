@@ -20,11 +20,6 @@ end
 elsif memo_type == 2
     puts "拡張子を除いた既存ファイル名を入力してください。"
     file_name = gets.chomp
-
-    puts "メモしたい内容を記入してください。"
-    puts "完了したらCtrl＋Dを押します"
-    memo_type = STDIN.read
-    memo = memo_type.chomp
     
     puts "メモの内容です。"
     memo_list = []
@@ -32,11 +27,16 @@ elsif memo_type == 2
     memo_list << row[0]
     puts "#{memo_list.length}. #{row[0]}"
     end 
-
+    
     memo = ""
     CSV.foreach("#{file_name}.csv") do |row|
     memo = row[0]
     end
+
+    puts "メモしたい内容を記入してください。"
+    puts "完了したらCtrl＋Dを押します"
+    memo_type = STDIN.read
+    memo = memo_type.chomp
 
     CSV.open("#{file_name}.csv", "a") do |csv|
     memo_list.pop
@@ -45,5 +45,4 @@ elsif memo_type == 2
       csv << [m]
     end
 end
-    puts "メモを更新しました。"
-    end
+end
